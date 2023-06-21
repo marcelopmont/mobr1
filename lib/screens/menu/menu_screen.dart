@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:mobr1/screens/dice/dice_screen.dart';
+import 'package:mobr1/screens/menu/components/menu_button.dart';
 import 'package:mobr1/screens/personal_card/personal_card_screen.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -27,13 +29,10 @@ class MenuScreen extends StatelessWidget {
               ),
               SizedBox(height: 32),
               SizedBox(
-                width: double.infinity,
-                child: Material(
-                  borderRadius: BorderRadius.circular(1000),
-                  elevation: 8,
-                  color: Colors.white,
-                  child: InkWell(
-                    onTap: () {
+                  width: double.infinity,
+                  child: MenuButton(
+                    text: 'Cartão pessoal',
+                    onPressed: () {
                       Navigator.pushNamed(
                         context,
                         PersonalCardScreen.routeName,
@@ -43,22 +42,13 @@ class MenuScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    borderRadius: BorderRadius.circular(1000),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Center(
-                        child: Text(
-                          'Cartão pessoal',
-                          style: TextStyle(
-                            color: Colors.teal,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+                  )),
+              SizedBox(height: 16),
+              MenuButton(
+                text: 'Dado',
+                onPressed: () =>
+                    Navigator.pushNamed(context, DiceScreen.routeName),
+              )
             ],
           ),
         ),

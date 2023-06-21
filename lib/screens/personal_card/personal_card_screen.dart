@@ -13,7 +13,7 @@ class PersonalCardScreenParams {
 }
 
 
-class PersonalCardScreen extends StatelessWidget {
+class PersonalCardScreen extends StatefulWidget {
   static const routeName = '/personal-card';
 
   const PersonalCardScreen({
@@ -23,6 +23,11 @@ class PersonalCardScreen extends StatelessWidget {
 
   final PersonalCardScreenParams params;
 
+  @override
+  State<PersonalCardScreen> createState() => _PersonalCardScreenState();
+}
+
+class _PersonalCardScreenState extends State<PersonalCardScreen> {
   @override
   Widget build(BuildContext context) {
     const textStyle = TextStyle(
@@ -58,22 +63,22 @@ class PersonalCardScreen extends StatelessWidget {
               const SizedBox(height: 32),
               PersonalCardButton(
                 icon: Icons.phone,
-                text: params.phoneNumber,
+                text: widget.params.phoneNumber,
                 onPressed: () {
                   launchUrl(
-                    Uri.parse('whatsapp://send?phone=${params.phoneNumber}&text=Olá'),
+                    Uri.parse('whatsapp://send?phone=${widget.params.phoneNumber}&text=Olá'),
                   );
                 },
               ),
               const SizedBox(height: 16),
               PersonalCardButton(
                 icon: Icons.email,
-                text: params.email,
+                text: widget.params.email,
                 onPressed: () {
                   launchUrl(
                     Uri(
                       scheme: 'mailto',
-                      path: params.email,
+                      path: widget.params.email,
                       query: 'subject=Teste&body=Testando email automático',
                     ),
                   );
