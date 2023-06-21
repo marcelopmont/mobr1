@@ -1,7 +1,11 @@
+import 'package:collection/collection.dart';
+
 import 'package:flutter/material.dart';
 import 'package:mobr1/screens/dice/dice_screen.dart';
 import 'package:mobr1/screens/menu/menu_screen.dart';
 import 'package:mobr1/screens/personal_card/personal_card_screen.dart';
+import 'package:mobr1/screens/quiz/quiz_finished_screen.dart';
+import 'package:mobr1/screens/quiz/quiz_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +14,8 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  T? cast<T>(x) => x is T ? x : null;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,6 +35,14 @@ class MyApp extends StatelessWidget {
           );
         },
         DiceScreen.routeName: (_) => const DiceScreen(),
+        QuizScreen.routeName: (_) => const QuizScreen(),
+        QuizFinishedScreen.routeName: (context) {
+          final arguments = ModalRoute.of(context)?.settings.arguments
+              as QuizFinishedScreenParams;
+          return QuizFinishedScreen(
+            params: arguments,
+          );
+        },
       },
     );
   }
