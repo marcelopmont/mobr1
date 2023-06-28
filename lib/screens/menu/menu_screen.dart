@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobr1/screens/dice/dice_screen.dart';
 import 'package:mobr1/screens/menu/components/menu_button.dart';
+import 'package:mobr1/screens/movies/movies_screen.dart';
 import 'package:mobr1/screens/personal_card/personal_card_screen.dart';
 import 'package:mobr1/screens/quiz/quiz_screen.dart';
 
@@ -55,6 +56,12 @@ class MenuScreen extends StatelessWidget {
                 text: 'Quiz',
                 onPressed: () =>
                     Navigator.pushNamed(context, QuizScreen.routeName),
+              ),
+              SizedBox(height: 16),
+              MenuButton(
+                text: 'Filmes',
+                onPressed: () =>
+                    Navigator.pushNamed(context, MoviesScreen.routeName),
               ),
             ],
           ),
