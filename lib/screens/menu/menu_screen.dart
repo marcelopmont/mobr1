@@ -8,7 +8,7 @@ import 'package:mobr1/screens/personal_card/personal_card_screen.dart';
 import 'package:mobr1/screens/quiz/quiz_screen.dart';
 
 class MenuScreen extends StatelessWidget {
-  static const routeName = '/menu_screen';
+  static const routeName = '/';
 
   const MenuScreen({super.key});
 

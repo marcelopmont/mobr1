@@ -29,27 +29,58 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: AuthScreen.routeName,
-      routes: {
-        AuthScreen.routeName: (_) => AuthScreen(),
-        MenuScreen.routeName: (_) => const MenuScreen(),
-        PersonalCardScreen.routeName: (context) {
-          final arguments = ModalRoute.of(context)?.settings.arguments
-              as PersonalCardScreenParams;
-          return PersonalCardScreen(
-            params: arguments,
-          );
-        },
-        DiceScreen.routeName: (_) => const DiceScreen(),
-        QuizScreen.routeName: (_) => const QuizScreen(),
-        QuizFinishedScreen.routeName: (context) {
-          final arguments = ModalRoute.of(context)?.settings.arguments
-              as QuizFinishedScreenParams;
-          return QuizFinishedScreen(
-            params: arguments,
-          );
-        },
-        MoviesScreen.routeName: (_) => const MoviesScreen(),
+      //initialRoute: AuthScreen.routeName,
+      onGenerateRoute: (route) {
+        switch(route.name) {
+          case AuthScreen.routeName:
+            return MaterialPageRoute(
+              builder: (_) => AuthScreen(),
+            );
+          case MenuScreen.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const MenuScreen(),
+            );
+          case PersonalCardScreen.routeName:
+            final arguments = cast<PersonalCardScreenParams>(route.arguments);
+            return MaterialPageRoute(
+              builder: (_) => PersonalCardScreen(
+                params: arguments!,
+              ),
+            );
+          case DiceScreen.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const DiceScreen(),
+            );
+          case QuizScreen.routeName:
+            return PageRouteBuilder(
+              pageBuilder: (_, __, ___) => const QuizScreen(),
+              transitionsBuilder: (_, animation, __, child) {
+                const begin = Offset(0, 1.0);
+                const end = Offset.zero;
+                const curve = Curves.ease;
+
+                var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+            );
+          case QuizFinishedScreen.routeName:
+            final arguments = cast<QuizFinishedScreenParams>(route.arguments);
+            return MaterialPageRoute(
+              builder: (_) => QuizFinishedScreen(
+                params: arguments!,
+              ),
+            );
+          case MoviesScreen.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const MoviesScreen(),
+            );
+          default:
+            throw Exception('Route not found');
+        }
       },
     );
   }
