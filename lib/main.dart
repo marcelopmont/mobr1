@@ -1,6 +1,8 @@
 import 'package:collection/collection.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
+import 'package:mobr1/screens/auth/auth_screen.dart';
 import 'package:mobr1/screens/dice/dice_screen.dart';
 import 'package:mobr1/screens/menu/menu_screen.dart';
 import 'package:mobr1/screens/movies/movies_screen.dart';
@@ -8,7 +10,9 @@ import 'package:mobr1/screens/personal_card/personal_card_screen.dart';
 import 'package:mobr1/screens/quiz/quiz_finished_screen.dart';
 import 'package:mobr1/screens/quiz/quiz_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -25,8 +29,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: MenuScreen.routeName,
+      initialRoute: AuthScreen.routeName,
       routes: {
+        AuthScreen.routeName: (_) => AuthScreen(),
         MenuScreen.routeName: (_) => const MenuScreen(),
         PersonalCardScreen.routeName: (context) {
           final arguments = ModalRoute.of(context)?.settings.arguments
