@@ -7,11 +7,22 @@ import '../screens/movies_error_screen.dart';
 import '../screens/movies_loading_screen.dart';
 import '../screens/movies_screen.dart';
 
-class MoviesContainer extends BlocBuilder<MoviesCubit, MoviesCubitState> {
+class MoviesContainer extends BlocConsumer<MoviesCubit, MoviesCubitState> {
   static String routeName = '/movies';
 
   MoviesContainer({super.key})
       : super(
+          listener: (context, state) {
+            if (state.onRefetchPressed) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    'Recarregando...',
+                  ),
+                ),
+              );
+            }
+          },
           builder: (context, state) {
             onBackPressed() => Navigator.of(context).pop();
             switch (state.status) {
@@ -21,6 +32,9 @@ class MoviesContainer extends BlocBuilder<MoviesCubit, MoviesCubitState> {
                 );
               case MoviesCubitStateStatus.loaded:
                 return MoviesScreen(
+                  onRefreshPressed: () {
+                    MoviesCubitProvider.of(context).onRefetchMovies();
+                  },
                   onBackPressed: onBackPressed,
                   moviesList: state.moviesList,
                 );
@@ -33,14 +47,3 @@ class MoviesContainer extends BlocBuilder<MoviesCubit, MoviesCubitState> {
           },
         );
 }
-
-// Future<void> _showSnackBar() async {
-//   ScaffoldMessenger.of(context).showSnackBar(
-//     SnackBar(
-//       backgroundColor: Colors.red,
-//       content: Text(
-//         error.toString(),
-//       ),
-//     ),
-//   );
-// }

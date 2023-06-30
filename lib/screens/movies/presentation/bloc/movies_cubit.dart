@@ -18,7 +18,18 @@ class MoviesCubit extends Cubit<MoviesCubitState> {
 
   FetchMovies fetchMovies;
 
-  void onInit() async {
+  void onRefetchMovies() async {
+    emit(state.copyWith(
+      onRefetchPressed: true,
+    ));
+    emit(state.copyWith(
+      onRefetchPressed: false,
+    ));
+
+    onFetchMovies();
+  }
+
+  void onFetchMovies() async {
     try {
       final moviesList = await fetchMovies.execute();
 
@@ -45,7 +56,7 @@ class MoviesCubitProvider extends BlocProvider<MoviesCubit> {
           key: key,
           create: (_) => MoviesCubit(
             fetchMovies: GetIt.instance<FetchMovies>(),
-          )..onInit(),
+          )..onFetchMovies(),
           child: child,
         );
 
