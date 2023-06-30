@@ -1,45 +1,36 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobr1/screens/movies/data/use_cases/fetch_movies_impl.dart';
+import 'package:mobr1/screens/movies/domain/use_cases/fetch_movies.dart';
+import 'package:mobr1/screens/movies/domain/utils/domain_errors.dart';
 
-import '../model/movie.dart';
 import 'movies_cubit_state.dart';
 
 class MoviesCubit extends Cubit<MoviesCubitState> {
-  MoviesCubit()
-      : super(
+  MoviesCubit({
+    required this.fetchMovies,
+  }) : super(
           const MoviesCubitState(
             status: MoviesCubitStateStatus.loading,
           ),
         );
 
-  void onInit() {
-    _fetchMovies();
-  }
+  FetchMovies fetchMovies;
 
-  Future<void> _fetchMovies() async {
+  void onInit() async {
     try {
-      final uri = Uri.parse('https://demo7206081.mockable.io/movies');
-      final response = await Client().get(uri);
-
-      final responseJson = jsonDecode(response.body);
-      final moviesListJson = responseJson['results'];
-
-      final moviesList = moviesListJson
-          .map<Movie>((movieJson) => Movie.fromJson(movieJson))
-          .toList();
+      final moviesList = await fetchMovies.execute();
 
       emit(state.copyWith(
         status: MoviesCubitStateStatus.loaded,
         moviesList: moviesList,
       ));
-    } catch (error) {
+    } on DomainError catch (error) {
       emit(
         state.copyWith(
           status: MoviesCubitStateStatus.error,
-          error: error.toString(),
+          error: error.description,
         ),
       );
     }
@@ -52,7 +43,9 @@ class MoviesCubitProvider extends BlocProvider<MoviesCubit> {
     Widget? child,
   }) : super(
           key: key,
-          create: (_) => MoviesCubit()..onInit(),
+          create: (_) => MoviesCubit(
+            fetchMovies: GetIt.instance<FetchMovies>(),
+          )..onInit(),
           child: child,
         );
 

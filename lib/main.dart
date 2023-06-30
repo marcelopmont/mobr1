@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobr1/screens/auth/auth_screen.dart';
 import 'package:mobr1/screens/dice/dice_screen.dart';
 import 'package:mobr1/screens/menu/menu_screen.dart';
+import 'package:mobr1/screens/movies/movies_service_locator.dart';
 import 'package:mobr1/screens/movies/presentation/containers/movies_container.dart';
 import 'package:mobr1/screens/personal_card/personal_card_screen.dart';
 import 'package:mobr1/screens/quiz/quiz_finished_screen.dart';
@@ -14,6 +15,9 @@ import 'screens/movies/presentation/bloc/movies_cubit.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  MoviesServiceLocator.setup();
+
   runApp(const MyApp());
 }
 

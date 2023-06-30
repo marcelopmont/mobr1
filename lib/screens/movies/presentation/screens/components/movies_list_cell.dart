@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../model/movie.dart';
+import '../../../domain/entities/movie_entity.dart';
 
 class MoviesListCell extends StatelessWidget {
   const MoviesListCell({
@@ -8,7 +8,7 @@ class MoviesListCell extends StatelessWidget {
     required this.movie,
   });
 
-  final Movie movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {

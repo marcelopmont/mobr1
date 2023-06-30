@@ -1,4 +1,4 @@
-import '../model/movie.dart';
+import '../../domain/entities/movie_entity.dart';
 
 enum MoviesCubitStateStatus { loading, loaded, error }
 
@@ -10,12 +10,12 @@ class MoviesCubitState {
   });
 
   final MoviesCubitStateStatus status;
-  final List<Movie> moviesList;
+  final List<MovieEntity> moviesList;
   final String? error;
 
   MoviesCubitState copyWith({
     MoviesCubitStateStatus? status,
-    List<Movie>? moviesList,
+    List<MovieEntity>? moviesList,
     String? error,
   }) {
     return MoviesCubitState(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'components/movies_list_cell.dart';
 
-import '../model/movie.dart';
+import '../../domain/entities/movie_entity.dart';
 
 class MoviesScreen extends StatelessWidget {
   const MoviesScreen({
@@ -11,7 +11,7 @@ class MoviesScreen extends StatelessWidget {
   });
 
   final VoidCallback onBackPressed;
-  final List<Movie> moviesList;
+  final List<MovieEntity> moviesList;
 
   @override
   Widget build(BuildContext context) {
