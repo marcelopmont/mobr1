@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/movie.dart';
+import '../../model/movie.dart';
 
 class MoviesListCell extends StatelessWidget {
   const MoviesListCell({

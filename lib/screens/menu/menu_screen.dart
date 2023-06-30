@@ -3,9 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobr1/screens/dice/dice_screen.dart';
 import 'package:mobr1/screens/menu/components/menu_button.dart';
-import 'package:mobr1/screens/movies/movies_screen.dart';
 import 'package:mobr1/screens/personal_card/personal_card_screen.dart';
 import 'package:mobr1/screens/quiz/quiz_screen.dart';
+
+import '../movies/presentation/containers/movies_container.dart';
 
 class MenuScreen extends StatelessWidget {
   static const routeName = '/menu_screen';
@@ -61,7 +62,7 @@ class MenuScreen extends StatelessWidget {
               MenuButton(
                 text: 'Filmes',
                 onPressed: () =>
-                    Navigator.pushNamed(context, MoviesScreen.routeName),
+                    Navigator.pushNamed(context, MoviesContainer.routeName),
               ),
             ],
           ),

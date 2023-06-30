@@ -1,14 +1,15 @@
-import 'package:collection/collection.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
 import 'package:mobr1/screens/auth/auth_screen.dart';
 import 'package:mobr1/screens/dice/dice_screen.dart';
 import 'package:mobr1/screens/menu/menu_screen.dart';
-import 'package:mobr1/screens/movies/movies_screen.dart';
+import 'package:mobr1/screens/movies/presentation/containers/movies_container.dart';
 import 'package:mobr1/screens/personal_card/personal_card_screen.dart';
 import 'package:mobr1/screens/quiz/quiz_finished_screen.dart';
 import 'package:mobr1/screens/quiz/quiz_screen.dart';
+
+import 'screens/movies/presentation/bloc/movies_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: AuthScreen.routeName,
+      initialRoute: MenuScreen.routeName,
       routes: {
         AuthScreen.routeName: (_) => AuthScreen(),
         MenuScreen.routeName: (_) => const MenuScreen(),
@@ -49,7 +50,8 @@ class MyApp extends StatelessWidget {
             params: arguments,
           );
         },
-        MoviesScreen.routeName: (_) => const MoviesScreen(),
+        MoviesContainer.routeName: (_) =>
+            MoviesCubitProvider(child: MoviesContainer()),
       },
     );
   }
